@@ -1,6 +1,7 @@
 package fr.sauvraign;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Booking {
     private Vehicle vehicle;
@@ -8,7 +9,7 @@ public class Booking {
     private LocalDate startDate;
     private LocalDate endDate;
 	private boolean paid;
-    
+
     public Booking(LocalDate startDate, 
                     LocalDate endDate,  
                     boolean paid, 
@@ -20,10 +21,16 @@ public class Booking {
         this.endDate = endDate;
         this.paid = paid;
     }
-
+    
     @Override
     public String toString() {
         return "Booking [startDate=" + startDate + ", endDate=" + endDate + ", paid=" + paid + ", customer=" + customer + "\n, vehicle=" + vehicle + "]";
+    }
+    
+    public double totalPrice() {
+        long diffInDays = ChronoUnit.DAYS.between(startDate,endDate);
+        double totalPrice = diffInDays * vehicle.getPricePerDay();
+        return totalPrice;
     }
     
     public Vehicle getVehicle() {
@@ -55,10 +62,6 @@ public class Booking {
 
     public void setPaid(boolean paid) {
         this.paid = paid;
-    }
-    
-    public double totalPrice() {
-        return 0.0;
     }
 
 }

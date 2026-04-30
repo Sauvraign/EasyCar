@@ -81,15 +81,12 @@ public class Customer {
     }
 
     public double totalMoneySpent() {
-        return 0.0;
-    }
-
-    public void addReservation() {
-        return;
-    }
-
-    public void removeReservation() {
-        return;
+        double totalMoneySpent = 0.0;
+        for(int i = 0; i < this.bookings.size(); i++){
+            Booking book = bookings.get(i);
+            totalMoneySpent = totalMoneySpent + book.totalPrice();
+        }
+        return totalMoneySpent;
     }
 
     public ArrayList<Booking> getBooking() {
