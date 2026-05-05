@@ -1,8 +1,9 @@
 package fr.sauvraign;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Customer {
+public class Customer implements Comparable<Customer>, Serializable {
     private ArrayList<Booking> bookings = new ArrayList<Booking>(); 
     private String firstName;
     private String lastName;
@@ -91,5 +92,15 @@ public class Customer {
 
     public ArrayList<Booking> getBooking() {
         return bookings;
+    }
+    @Override
+    public int compareTo(Customer other) {
+        if (this.totalMoneySpent() < other.totalMoneySpent()) {
+            return -1;
+        } else if (this.totalMoneySpent() > other.totalMoneySpent()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

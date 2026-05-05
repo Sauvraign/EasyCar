@@ -20,6 +20,7 @@ public class Booking {
         this.startDate = startDate;
         this.endDate = endDate;
         this.paid = paid;
+        customer.addBooking(this);
     }
     
     @Override
