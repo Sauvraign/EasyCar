@@ -1,8 +1,15 @@
 package fr.sauvraign;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class Application {
 
@@ -31,5 +38,31 @@ public class Application {
         System.out.println(customers.get(0).totalMoneySpent());
         System.out.println(customers.get(1).totalMoneySpent());
         System.out.println(customers.get(2).totalMoneySpent());
+
+        try {
+            System.out.println("creation de : " + customers.get(1));
+
+            // ouverture d'un flux de sortie vers le fichier "personne.serial"
+            FileOutputStream fos = new FileOutputStream("custo.mer.serial");
+
+            // création d'un "flux objet" avec le flux fichier
+            ObjectOutputStream oos= new ObjectOutputStream(fos);
+            try {
+                // sérialisation : écriture de l'objet dans le flux de sortie
+                oos.writeObject(customers.get(1)); 
+                // on vide le tampon
+                oos.flush();
+                System.out.println(customers.get(1) + " a ete serialise");
+            } finally {
+                //fermeture des flux
+                try {
+                    oos.close();
+                } finally {
+                    fos.close();
+                }
+            }
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 }
